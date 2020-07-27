@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+{% endblock %}
+
+
+
+{% block body%} 
+    <div class="content">
+        <h4>This is the initial project, its still under development! The dataset is not up to date with latest movies, I'm working on it :)</h4>
+        <br><h1 style="text-align: center;">Movie Recommendation</h1>
+        {% if movies|length < 1 %}
+        <h4 style="text-align: center;">There are no movies to recommend. Add a movie below</h4>
+        {% else %}
+        <table>
+            <tr>
+                <th>Movies</th>
+            </tr>
+            {% for movie in movies %}
+            <tr> 
+                <td>{{ movie }}</td>
+            </tr>
+        {% endfor %}
+            
+        </table>
+        {% endif %}
+        <div class="form">
+            <form action="/" method="POST">
+                <input type="text" name="content" id="content">
+                <input type="submit" name="Add Movie">
+            </form>
+        </div>
+        <footer>
+            <h4>If you have any suggestions or problems, please mail me at:</h4>
+            <a href="mailto:bhogalprbajot1@gmail.com">bhogalprbajot1@gmail.com</a></p>
+        </footer>
+    </div>
+{% endblock %}
+
+<!-- {% block footer %}
+  
+{% endblock %} -->
