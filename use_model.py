@@ -6,7 +6,7 @@ from joblib import dump, load
 
 from difflib import get_close_matches
 
-movieList = load('movieList.joblib')
+movieList = load('movie_list.joblib')
 movieNames = movieList.tolist()
 
 def get_title_from_index(index):
@@ -25,15 +25,22 @@ def nameCheck(name):
     elif simName:
         return simName[0], True
     else:
+        #TODO: take keywords, cast, genre, and director from user in this sequence 
         return "This movie does not exist in my dataset! I'll update it shortly!", False
     
 
 def recommend(movie):
 
-    model = load('model.joblib')
-
+    #this is a fixed count matrix
+    count_matrix = load('count_matrix.joblib')
+    
     movie_user_likes = movie
-    cosine_sim = cosine_similarity(model)
+    cosine_sim = cosine_similarity(count_matrix)
+
+    """
+    In order for a new movie or a movie that is not in our movieList and count_matrix.joblib, we need to recalculate the count_matrix
+    and also recalculate the cosine similarity. 
+    """
 
     movie_index = get_index_from_title(movie_user_likes)
     similar_movies = list(enumerate(cosine_sim[movie_index]))
